@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>cn.eu</groupId>
+    <artifactId>resultmgr</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>resultmgr</name>
+    <description>成绩管理系统</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <ibps.version>2.3.1-SNAPSHOT</ibps.version>
+        <ibps-release.version>2.3.1-LC.RELEASE</ibps-release.version>
+    </properties>
+
+    <dependencies>
+        <!--spring boot dependency start-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!---spring boot dependency end-->
+
+        <!---ibps dependency start -->
+        <!--api base-->
+        <dependency>
+            <groupId>com.lc.ibps.api</groupId>
+            <artifactId>ibps-api-base</artifactId>
+            <version>${ibps.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lc.ibps.base</groupId>
+            <artifactId>ibps-base-common</artifactId>
+            <version>${ibps.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lc.ibps.base</groupId>
+            <artifactId>ibps-base-framework-ddd</artifactId>
+            <version>${ibps.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lc.ibps.base</groupId>
+                    <artifactId>ibps-base-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!---ibps dependency end -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+
+        <!--mybatis plus dependency start -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <!--mock dependency start-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>2.18.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
