@@ -1,5 +1,6 @@
 package cn.eu.resultmgr.booking.domain.checkResult;
 
+import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.model.Score;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
 
@@ -7,7 +8,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CheckSubItemResultStorehouse {
+public class CheckSubItemResultStorehouse extends ValueObj {
+    private static final long serialVersionUID = 2503316443957908021L;
     //分项成绩
     private Collection<CheckSubItemResult> studentCheckItemResults = new HashSet<CheckSubItemResult>();
     public CheckSubItemResultStorehouse() {

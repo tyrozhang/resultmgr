@@ -1,6 +1,8 @@
 package cn.eu.resultmgr.contants;
 
-public enum ScoreType {
+import java.io.Serializable;
+
+public enum ScoreType implements Serializable {
     HUNDRED_MARK_SYSTEM,
     TWO_POINTS_SYSTEM,
     FIVE_POINTS_SYSTEM,

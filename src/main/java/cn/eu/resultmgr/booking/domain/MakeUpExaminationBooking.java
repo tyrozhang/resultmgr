@@ -25,7 +25,8 @@ public class MakeUpExaminationBooking extends Booking {
 
     @Override
     public Set<CheckPlanItem> getCheckPlanItems() {
-        HashSet<CheckPlanItem> checkPlanItems=new HashSet<CheckPlanItem>(){};
+        HashSet<CheckPlanItem> checkPlanItems=new HashSet<CheckPlanItem>(){
+        };
         checkPlanItems.add(new CheckPlanItem(CheckSubItemFactory.MakeUpExam));
         return checkPlanItems;
     }

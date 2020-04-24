@@ -1,5 +1,6 @@
 package cn.eu.resultmgr.booking.domain;
 
+import cn.eu.common.bean.BeanCopyUtil;
 import cn.eu.resultmgr.contants.ScoreType;
 import cn.eu.resultmgr.model.CheckCourse;
 import cn.eu.resultmgr.model.CheckTerm;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class NormalExaminationBooking extends Booking {
     @Override
     public Set<CheckPlanItem> getCheckPlanItems() {
-        return this.checkPlan.getCheckPlanItem();
+        return BeanCopyUtil.clone(this.checkPlan.getCheckPlanItem());
     }
 
     //考核计划

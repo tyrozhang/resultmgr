@@ -1,12 +1,13 @@
 package cn.eu.resultmgr.booking.domain.checkPlan;
 
+import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
 import cn.eu.resultmgr.booking.domain.exception.CheckPlanItemWeightMoreThanOneException;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class CheckPlan {
+public class CheckPlan extends ValueObj {
 
     private Set<CheckPlanItem> checkPlanItems;
     public CheckPlan() {

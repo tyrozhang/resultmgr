@@ -1,6 +1,7 @@
 package cn.eu.resultmgr.booking.domain;
 
 import cn.eu.framwork.domain.IDomain;
+import cn.eu.common.bean.BeanCopyUtil;
 import cn.eu.resultmgr.contants.ScoreType;
 import cn.eu.resultmgr.contants.TwoPointSystemResult;
 import cn.eu.resultmgr.booking.domain.checkPlan.CheckPlanItem;
@@ -45,7 +46,7 @@ public abstract class Booking implements IDomain {
 
     //获取考核学生名单
     public List<Student> getStudentsList(){
-        return this.studentList.getStudents();
+        return BeanCopyUtil.clone(this.studentList.getStudents());
     }
 
     /**
@@ -53,7 +54,10 @@ public abstract class Booking implements IDomain {
      * @return CheckSubItemResult
      */
     public CheckSubItemResult getCheckSubItemResult(String studentID, CheckSubItem checkSubItem){
-        return this.checkSubItemResultStorehouse.getCheckSubItemResult(studentID,checkSubItem);
+        CheckSubItemResult checkSubItemResult = this.checkSubItemResultStorehouse.getCheckSubItemResult(studentID,checkSubItem);
+        if(checkSubItemResult==null)
+            return null;
+        return checkSubItemResult.copy();
     }
 
     /**
@@ -61,7 +65,7 @@ public abstract class Booking implements IDomain {
      * @return CheckSubItemResult
      */
     public Set<CheckSubItemResult> getCheckSubItemResult(String studentID){
-        return this.checkSubItemResultStorehouse.getCheckSubItemResult(studentID);
+        return BeanCopyUtil.clone(this.checkSubItemResultStorehouse.getCheckSubItemResult(studentID));
     }
 
     //更正分制
@@ -89,20 +93,20 @@ public abstract class Booking implements IDomain {
 
     //后期需修改为返回克隆对象
     public CheckCourse getCheckCourse() {
-        return checkCourse;
+        return this.checkCourse.copy();
     }
 
     public CheckTerm getCheckTerm() {
-        return checkTerm;
+        return checkTerm.copy();
     }
 
     public ScoreType getScoreType() {
-        return scoreType;
+        return BeanCopyUtil.clone(scoreType);
     }
 
     @Override
     public String getEntityID() {
-        return bookingID;
+        return BeanCopyUtil.clone(bookingID);
     }
 
     //登记成绩

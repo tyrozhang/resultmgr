@@ -1,9 +1,13 @@
 package cn.eu.resultmgr.booking.domain.checkResult;
 
+import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.model.Score;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
 
-public class CheckSubItemResult {
+import java.io.Serializable;
+
+public class CheckSubItemResult extends ValueObj {
+    private static final long serialVersionUID = -8680939135578292913L;
     private String studentID;
     private CheckSubItem checkItem;
     private Score score;

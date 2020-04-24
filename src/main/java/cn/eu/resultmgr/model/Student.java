@@ -1,8 +1,9 @@
 package cn.eu.resultmgr.model;
 
-public class Student {
+import cn.eu.framwork.bean.ValueObj;
 
-
+public class Student extends ValueObj {
+    private static final long serialVersionUID = -6046846135153005471L;
     private String studentID;
     private String studentNO;
     private String studentName;

@@ -1,10 +1,12 @@
 package cn.eu.resultmgr.model;
 
+import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.contants.ScoreType;
 import cn.eu.resultmgr.contants.TwoPointSystemResult;
 
-public class Score {
+public class Score extends ValueObj {
 
+    private static final long serialVersionUID = 3608309040441440375L;
     private ScoreType scoreType;
     private Float value;
 
