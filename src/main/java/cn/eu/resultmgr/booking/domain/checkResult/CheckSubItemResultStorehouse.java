@@ -1,7 +1,6 @@
 package cn.eu.resultmgr.booking.domain.checkResult;
 
 import cn.eu.framwork.bean.ValueObj;
-import cn.eu.resultmgr.model.Score;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
 
 import java.util.HashSet;
