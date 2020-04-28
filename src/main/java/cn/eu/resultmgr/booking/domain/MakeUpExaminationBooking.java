@@ -42,7 +42,7 @@ public class MakeUpExaminationBooking extends Booking {
     }
 
     @Override
-    public Score CountFinalResultNext(String studentID) {
+    public Score countFinalResultNext(String studentID) {
         //二分制
         if(this.getScoreType()==ScoreType.TWO_POINTS_SYSTEM) {
             Score score =this.getCheckSubItemResult(studentID, CheckSubItemFactory.MakeUpExam).getScore();
@@ -58,5 +58,10 @@ public class MakeUpExaminationBooking extends Booking {
             return new Score(60F);
         else
             return score;
+    }
+
+    @Override
+    public <T> T genatatePO() {
+        return null;
     }
 }

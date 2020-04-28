@@ -12,9 +12,9 @@ public class CheckSubItemResult extends ValueObj {
     private CheckSubItem checkItem;
     private Score score;
 
-    public CheckSubItemResult(String studentID, CheckSubItem checkSubItem, Score score) {
+    public CheckSubItemResult(String studentID, CheckSubItem checkItem, Score score) {
         this.studentID = studentID;
-        this.checkItem = checkSubItem;
+        this.checkItem = checkItem;
         this.score = score;
     }
 

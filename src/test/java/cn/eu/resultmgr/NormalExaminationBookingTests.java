@@ -7,8 +7,6 @@ import cn.eu.resultmgr.booking.domain.checkPlan.CheckPlanItem;
 import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
 import cn.eu.resultmgr.booking.domain.checkResult.CheckSubItemResult;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItemFactory;
-import cn.eu.resultmgr.booking.domain.checkSubItem.Exam;
-import cn.eu.resultmgr.booking.domain.checkSubItem.Usual;
 import cn.eu.resultmgr.booking.domain.exception.CheckPlanNotIncludeTheCheckItemException;
 import cn.eu.resultmgr.booking.domain.exception.ScoreTypeInvalidException;
 import cn.eu.resultmgr.booking.domain.exception.WithoutTheStudentException;
@@ -89,7 +87,7 @@ public class NormalExaminationBookingTests {
 
         p_Booking.recordResult(new CheckSubItemResult("s_id_123",CheckSubItemFactory.USUAL,new Score(80F)));
 
-        Assertions.assertEquals(80F,p_Booking.getCheckSubItemResult("s_id_123",new Usual()).getScore().getValue());
+        Assertions.assertEquals(80F,p_Booking.getCheckSubItemResult("s_id_123",CheckSubItemFactory.USUAL).getScore().getValue());
     }
 
     @Test
@@ -103,7 +101,7 @@ public class NormalExaminationBookingTests {
 
         p_Booking.recordResult(new CheckSubItemResult("s_id_123",CheckSubItemFactory.EXAM,new Score(TwoPointSystemResult.PASS)));
 
-        Assertions.assertEquals(TwoPointSystemResult.PASS.getValue(),p_Booking.getCheckSubItemResult("s_id_123",new Exam()).getScore().getValue());
+        Assertions.assertEquals(TwoPointSystemResult.PASS.getValue(),p_Booking.getCheckSubItemResult("s_id_123",CheckSubItemFactory.EXAM).getScore().getValue());
     }
 
 
@@ -122,7 +120,7 @@ public class NormalExaminationBookingTests {
         p_Booking.recordResult(new CheckSubItemResult("s_id_123",CheckSubItemFactory.EXAM,new Score(80F)));
 
         //计算总成绩
-        Score finalScore = p_Booking.CountFinalResultNext("s_id_123");
+        Score finalScore = p_Booking.countFinalResultNext("s_id_123");
         Assertions.assertEquals(77F,finalScore.getValue());
     }
 
@@ -136,7 +134,7 @@ public class NormalExaminationBookingTests {
         p_Booking.addStudent(util.getStudent());
         p_Booking.markCheated("s_id_123");
 
-        Assertions.assertEquals(TwoPointSystemResult.NOTPASS.getValue(),p_Booking.CountFinalResult("s_id_123").getValue());
+        Assertions.assertEquals(TwoPointSystemResult.NOTPASS.getValue(),p_Booking.countFinalResult("s_id_123").getValue());
     }
 
     @Test
@@ -149,6 +147,20 @@ public class NormalExaminationBookingTests {
         p_Booking.addStudent(util.getStudent());
         p_Booking.markCheated("s_id_123");
 
-        Assertions.assertEquals(0F,p_Booking.CountFinalResult("s_id_123").getValue());
+        Assertions.assertEquals(0F,p_Booking.countFinalResult("s_id_123").getValue());
+    }
+
+    @Test
+    @DisplayName("没有成绩时计算总评成绩")
+    void whenNothingResultCountFinalScoreTest(){
+        NormalExaminationBooking p_Booking = util.initNormalExaminationBooking(ScoreType.TWO_POINTS_SYSTEM);
+
+        p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.EXAM));
+
+        p_Booking.addStudent(util.getStudent());
+
+        //计算总成绩
+        Score finalScore = p_Booking.countFinalResultNext("s_id_123");
+        Assertions.assertEquals(Score.emptyScore().getValue(),finalScore.getValue());
     }
 }

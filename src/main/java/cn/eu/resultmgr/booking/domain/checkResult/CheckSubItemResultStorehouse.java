@@ -4,14 +4,14 @@ import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.model.Score;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CheckSubItemResultStorehouse extends ValueObj {
     private static final long serialVersionUID = 2503316443957908021L;
     //分项成绩
-    private Collection<CheckSubItemResult> studentCheckItemResults = new HashSet<CheckSubItemResult>();
+    private Set<CheckSubItemResult> studentCheckItemResults = new HashSet<CheckSubItemResult>();
     public CheckSubItemResultStorehouse() {
     }
 
@@ -25,15 +25,19 @@ public class CheckSubItemResultStorehouse extends ValueObj {
         this.studentCheckItemResults.add(checkSubItemResult);
     }
 
-    //获取全部学员最终成绩
-    public  Score[] getFinalResult(){
-        return null;
-    };
+    //登记成绩
+    public void recordResult(List<CheckSubItemResult> checkSubItemResults) {
+        if(checkSubItemResults==null)
+            return;
+        for (CheckSubItemResult checkSubItemResult:checkSubItemResults) {
+            recordResult(checkSubItemResult);
+        }
+    }
 
     //获取指定学员某分项成绩
     public  CheckSubItemResult getCheckSubItemResult(String studentID, CheckSubItem checkSubItem){
         for (CheckSubItemResult item:this.studentCheckItemResults) {
-            if(item.getStudentID()==studentID && item.getCheckItem().equal(checkSubItem)){
+            if(item.getStudentID().equals(studentID) && item.getCheckItem().equal(checkSubItem)){
                 return item;
             }
         }
@@ -44,11 +48,16 @@ public class CheckSubItemResultStorehouse extends ValueObj {
     public  Set<CheckSubItemResult> getCheckSubItemResult(String studentID){
         Set<CheckSubItemResult> checkSubItemResults=new HashSet<CheckSubItemResult>();
         for (CheckSubItemResult item:this.studentCheckItemResults) {
-            if(item.getStudentID()==studentID){
+            if(item.getStudentID().equals(studentID)){
                 checkSubItemResults.add(item);
             }
         }
         return checkSubItemResults;
+    }
+
+    //获取所有分项成绩
+    public  Set<CheckSubItemResult> getCheckSubItemResult(){
+        return this.studentCheckItemResults;
     }
 
     //删除某分项全部已登记成绩

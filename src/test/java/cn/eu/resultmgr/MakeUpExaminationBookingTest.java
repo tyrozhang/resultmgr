@@ -53,12 +53,12 @@ public class MakeUpExaminationBookingTest {
         //计算补考及格总成绩
         p_Booking.addStudent(util.getStudent("s_id_123","一班"));
         p_Booking.recordResult(new CheckSubItemResult("s_id_123",CheckSubItemFactory.MakeUpExam,new Score(TwoPointSystemResult.PASS)));
-        Assertions.assertEquals(TwoPointSystemResult.MARKUP_PASS.getValue(),p_Booking.CountFinalResult("s_id_123").getValue());
+        Assertions.assertEquals(TwoPointSystemResult.MARKUP_PASS.getValue(),p_Booking.countFinalResult("s_id_123").getValue());
 
         //计算补考不及格总成绩
         p_Booking.addStudent(util.getStudent("s_id_456","一班"));
         p_Booking.recordResult(new CheckSubItemResult("s_id_456",CheckSubItemFactory.MakeUpExam,new Score(TwoPointSystemResult.NOTPASS)));
-        Assertions.assertEquals(TwoPointSystemResult.MARKUP_NOTPASS.getValue(),p_Booking.CountFinalResult("s_id_456").getValue());
+        Assertions.assertEquals(TwoPointSystemResult.MARKUP_NOTPASS.getValue(),p_Booking.countFinalResult("s_id_456").getValue());
     }
 
 
@@ -71,12 +71,12 @@ public class MakeUpExaminationBookingTest {
         //计算补考及格总成绩
         p_Booking.addStudent(util.getStudent("s_id_123","一班"));
         p_Booking.recordResult(new CheckSubItemResult("s_id_123",CheckSubItemFactory.MakeUpExam,new Score(70F)));
-        Assertions.assertEquals(60F,p_Booking.CountFinalResult("s_id_123").getValue());
+        Assertions.assertEquals(60F,p_Booking.countFinalResult("s_id_123").getValue());
 
         //计算补考不及格总成绩
         p_Booking.addStudent(util.getStudent("s_id_456","一班"));
         p_Booking.recordResult(new CheckSubItemResult("s_id_456",CheckSubItemFactory.MakeUpExam,new Score(50.5F)));
-        Assertions.assertEquals(50.5F,p_Booking.CountFinalResult("s_id_456").getValue());
+        Assertions.assertEquals(50.5F,p_Booking.countFinalResult("s_id_456").getValue());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class MakeUpExaminationBookingTest {
         p_Booking.addStudent(util.getStudent());
         p_Booking.markCheated("s_id_123");
 
-        Assertions.assertEquals(TwoPointSystemResult.NOTPASS.getValue(),p_Booking.CountFinalResult("s_id_123").getValue());
+        Assertions.assertEquals(TwoPointSystemResult.NOTPASS.getValue(),p_Booking.countFinalResult("s_id_123").getValue());
     }
 
     @Test
@@ -98,6 +98,6 @@ public class MakeUpExaminationBookingTest {
         p_Booking.addStudent(util.getStudent());
         p_Booking.markCheated("s_id_123");
 
-        Assertions.assertEquals(0F,p_Booking.CountFinalResult("s_id_123").getValue());
+        Assertions.assertEquals(0F,p_Booking.countFinalResult("s_id_123").getValue());
     }
 }

@@ -1,4 +1,7 @@
 package cn.eu.framwork.repository;
 
-public interface IRepository<IDomain> {
+import cn.eu.framwork.domain.IDomain;
+
+public interface IRepository<T extends  IDomain> {
+    public void save(T t);
 }

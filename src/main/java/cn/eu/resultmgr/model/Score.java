@@ -10,6 +10,9 @@ public class Score extends ValueObj {
     private ScoreType scoreType;
     private Float value;
 
+    public Score() {
+    }
+
     public Score(Float value){
         this.scoreType = ScoreType.HUNDRED_MARK_SYSTEM;
         this.value = value;
@@ -19,11 +22,26 @@ public class Score extends ValueObj {
         this.scoreType = ScoreType.TWO_POINTS_SYSTEM;
         this.value = value.getValue();
     }
+
+    public void setScoreType(ScoreType scoreType) {
+        this.scoreType = scoreType;
+    }
+
+    public void setValue(Float value) {
+        this.value = value;
+    }
+
     public ScoreType getScoreType() {
         return scoreType;
     }
 
     public Float getValue() {
         return value;
+    }
+
+    public static Score emptyScore(){
+        Score score = new Score();
+        score.setValue(-9999F);
+        return score;
     }
 }

@@ -5,10 +5,12 @@ import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
 import cn.eu.resultmgr.booking.domain.exception.CheckPlanItemWeightMoreThanOneException;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CheckPlan extends ValueObj {
 
+    private static final long serialVersionUID = 8428429143491967285L;
     private Set<CheckPlanItem> checkPlanItems;
     public CheckPlan() {
     }
@@ -53,6 +55,16 @@ public class CheckPlan extends ValueObj {
 
         this.checkPlanItems.add(checkPlanItem);
     }
+
+    //添加考核项
+    public void addCheckPlanItem(List<CheckPlanItem> checkPlanItems){
+        if(checkPlanItems==null)
+            return;
+        for (CheckPlanItem checkPlanItem:checkPlanItems ) {
+            addCheckPlanItem(checkPlanItem);
+        }
+    }
+
     //移除指定考核项
     public void removeCheckPlanItem(CheckSubItem checkSubItem){
         if (this.checkPlanItems==null)

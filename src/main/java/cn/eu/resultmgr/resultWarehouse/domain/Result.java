@@ -47,4 +47,9 @@ public class Result implements IDomain {
     public void recordMarkupScore(Score markupScore){
 
     }
+
+    @Override
+    public Object genatatePO() {
+        return null;
+    }
 }

@@ -1,12 +1,14 @@
-package cn.eu.resultmgr.booking.domain;
+package cn.eu.resultmgr.booking.domain.examBehavior;
 
 import cn.eu.resultmgr.contants.ExamBehavior;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExamBehaviorRecord {
-    private Map<String,ExamBehavior> examBehaviorRecords;
+    private Map<String,ExamBehavior> examBehaviorRecords=new HashMap<String,ExamBehavior>();
 
     public ExamBehaviorRecord() {
     }
@@ -15,7 +17,6 @@ public class ExamBehaviorRecord {
      * 登记作弊
      */
     public void makeCheatedMark(String studentID){
-        initExamBehaviorRecordWhenIsNull();
         this.examBehaviorRecords.put(studentID,ExamBehavior.CHEATED);
     }
     /**
@@ -35,7 +36,6 @@ public class ExamBehaviorRecord {
      * 登记缓考
      */
     public void makeDelayExamMark(String studentID){
-        initExamBehaviorRecordWhenIsNull();
         this.examBehaviorRecords.put(studentID,ExamBehavior.DELAYEXAM);
     }
 
@@ -50,7 +50,7 @@ public class ExamBehaviorRecord {
      * 某学生是否违纪
      */
     public boolean isCheatedOrAbsent(String studentID){
-        if(this.examBehaviorRecords==null)
+        if(this.examBehaviorRecords.size()==0)
             return false;
 
         ExamBehavior examBehavior = this.examBehaviorRecords.get(studentID);
@@ -64,5 +64,32 @@ public class ExamBehaviorRecord {
             return true;
 
         return false;
+    }
+
+    /*
+    从jsonObject对象产生，用于反持久化时使用，业务中不使用
+     */
+    public static ExamBehaviorRecord genatateFromJsonStr(String jsonString){
+        if(jsonString==null  || jsonString.equals(""))
+            return new ExamBehaviorRecord();
+
+        //枚举反序列化方法
+        Map<String, ExamBehavior> map= new HashMap<String, ExamBehavior>();
+        JSONObject jsonMap = (JSONObject)JSONObject.parse(jsonString);
+        for(String key :jsonMap.keySet()){
+            ExamBehavior a=ExamBehavior.fromString(jsonMap.get(key).toString());
+            map.put(key,a);
+        }
+
+        ExamBehaviorRecord examBehaviorRecord = new ExamBehaviorRecord();
+        examBehaviorRecord.examBehaviorRecords=map;
+        return examBehaviorRecord;
+    }
+
+    /*
+    从jsonObject对象产生，用于反持久化时使用，业务中不使用
+     */
+    public  String toJsonString(){
+        return  JSON.toJSONString(this.examBehaviorRecords);
     }
 }

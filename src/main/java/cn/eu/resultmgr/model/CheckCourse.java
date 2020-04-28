@@ -3,22 +3,22 @@ package cn.eu.resultmgr.model;
 import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.contants.StudyRequire;
 
-import java.io.Serializable;
-
 /**
  *
  */
 public class CheckCourse extends ValueObj {
     private static final long serialVersionUID = 3580652548659070430L;
 
-    public CheckCourse(String courseID, String courseNO, StudyRequire studyRequire) {
+    public CheckCourse(String courseID, String courseNO, String courseName, StudyRequire studyRequire) {
         this.courseID = courseID;
         this.courseNO = courseNO;
+        this.courseName = courseName;
         this.studyRequire = studyRequire;
     }
 
     private String courseID;
     private String courseNO;
+    private String courseName;
     private StudyRequire studyRequire;
 
 
@@ -26,23 +26,16 @@ public class CheckCourse extends ValueObj {
         return courseID;
     }
 
-    public void setCourseID(String courseID) {
-        this.courseID = courseID;
-    }
-
     public String getCourseNO() {
         return courseNO;
     }
 
-    public void setCourseNO(String courseNO) {
-        this.courseNO = courseNO;
+    public String getCourseName() {
+        return courseName;
     }
 
     public StudyRequire getStudyRequire() {
         return studyRequire;
     }
-
-    public void setStudyRequire(StudyRequire studyRequire) {
-        this.studyRequire = studyRequire;
-    }
 }
+

@@ -7,7 +7,6 @@ import cn.eu.resultmgr.booking.domain.checkPlan.CheckPlanItem;
 import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
 import cn.eu.resultmgr.booking.domain.checkResult.CheckSubItemResult;
 import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItemFactory;
-import cn.eu.resultmgr.booking.domain.checkSubItem.Usual;
 import cn.eu.resultmgr.model.CheckCourse;
 import cn.eu.resultmgr.model.CheckTerm;
 import cn.eu.resultmgr.model.Score;
@@ -25,10 +24,10 @@ public class ChangeBookingTest {
 
         p_Booking.addStudent(util.getStudent());
 
-        p_Booking.addCheckPlanItem(new CheckPlanItem(new Usual(),0.3F));
+        p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.USUAL,0.3F));
 
         p_Booking.recordResult(new CheckSubItemResult("s_id_123", CheckSubItemFactory.USUAL,new Score(80F)));
-        Assertions.assertEquals(80F,p_Booking.getCheckSubItemResult("s_id_123",new Usual()).getScore().getValue());
+        Assertions.assertEquals(80F,p_Booking.getCheckSubItemResult("s_id_123",CheckSubItemFactory.USUAL).getScore().getValue());
 
         //修改后清除成绩
         p_Booking.changeScoreType(ScoreType.TWO_POINTS_SYSTEM);
@@ -58,7 +57,7 @@ public class ChangeBookingTest {
         Assertions.assertEquals(null,p_Booking.getCheckSubItemResult("s_id_123",new UsualCheckSubItem()));
     }*/
     private NormalExaminationBooking initBooking(ScoreType scoreType) {
-        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123", StudyRequire.MUST_STUDY);
+        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123", "大学英语", StudyRequire.MUST_STUDY);
         CheckTerm checkTerm = new CheckTerm("2019-2020-1");
         return new NormalExaminationBooking(checkCourse,checkTerm, scoreType);
     }

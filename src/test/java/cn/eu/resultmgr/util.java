@@ -10,10 +10,10 @@ import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
 
 public class util {
     public static NormalExaminationBooking initNormalExaminationBooking(ScoreType scoreType) {
-        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123", StudyRequire.MUST_STUDY);
+        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123","大学英语" , StudyRequire.MUST_STUDY);
         CheckTerm checkTerm = new CheckTerm("2019-2020-1");
         NormalExaminationBooking nb= new NormalExaminationBooking(checkCourse,checkTerm, scoreType);
-        for(int i=1;i<10;i++){
+        for(int i=1;i<40;i++){
             nb.addStudent(getStudent("stu"+i,"一班"));
         }
         for(int j=11;j<20;j++){
@@ -24,7 +24,7 @@ public class util {
     }
 
     public static MakeUpExaminationBooking initMakeUpExaminationBooking(ScoreType scoreType) {
-        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123", StudyRequire.MUST_STUDY);
+        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123", "大学英语", StudyRequire.MUST_STUDY);
         CheckTerm checkTerm = new CheckTerm("2019-2020-1");
         MakeUpExaminationBooking makeUpExaminationBooking= new MakeUpExaminationBooking(checkCourse,checkTerm, scoreType);
         for(int i=1;i<10;i++){

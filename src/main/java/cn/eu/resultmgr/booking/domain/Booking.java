@@ -2,6 +2,8 @@ package cn.eu.resultmgr.booking.domain;
 
 import cn.eu.framwork.domain.IDomain;
 import cn.eu.common.bean.BeanCopyUtil;
+import cn.eu.resultmgr.booking.domain.examBehavior.ExamBehaviorRecord;
+import cn.eu.resultmgr.booking.domain.studentRoll.StudentRoll;
 import cn.eu.resultmgr.contants.ScoreType;
 import cn.eu.resultmgr.contants.TwoPointSystemResult;
 import cn.eu.resultmgr.booking.domain.checkPlan.CheckPlanItem;
@@ -19,11 +21,11 @@ import cn.eu.resultmgr.model.Student;
 
 import java.util.*;
 
-public abstract class Booking implements IDomain {
+public abstract class Booking implements IDomain<Booking> {
 
 
     //登记册ID
-    private String bookingID=String.valueOf(new Date().getTime());
+    protected String bookingID=String.valueOf(new Date().getTime());
     //考核课程
     protected CheckCourse checkCourse;
     //分制类型
@@ -31,9 +33,9 @@ public abstract class Booking implements IDomain {
     //考核学期
     protected CheckTerm checkTerm;
     //学生名单
-    protected StudentList studentList = new StudentList();
+    protected StudentRoll studentRoll = new StudentRoll();
     //考核成绩库
-    protected CheckSubItemResultStorehouse checkSubItemResultStorehouse;
+    protected CheckSubItemResultStorehouse checkSubItemResultStorehouse=new CheckSubItemResultStorehouse();
     //考核行为登记
     protected ExamBehaviorRecord examBehaviorRecord=new ExamBehaviorRecord();
 
@@ -45,8 +47,8 @@ public abstract class Booking implements IDomain {
     }
 
     //获取考核学生名单
-    public List<Student> getStudentsList(){
-        return BeanCopyUtil.clone(this.studentList.getStudents());
+    public List<Student> getStudents(){
+        return BeanCopyUtil.clone(this.studentRoll.getStudents());
     }
 
     /**
@@ -61,10 +63,22 @@ public abstract class Booking implements IDomain {
     }
 
     /**
+     * 获取本登记册的所有分项成绩
+     * @return CheckSubItemResult
+     */
+    public Set<CheckSubItemResult> getCheckSubItemResult(){
+        if(this.checkSubItemResultStorehouse==null)
+            return null;
+        return BeanCopyUtil.clone(this.checkSubItemResultStorehouse.getCheckSubItemResult());
+    }
+
+    /**
      * 获取指定学员全部分项成绩
      * @return CheckSubItemResult
      */
     public Set<CheckSubItemResult> getCheckSubItemResult(String studentID){
+        if(this.checkSubItemResultStorehouse==null)
+            return null;
         return BeanCopyUtil.clone(this.checkSubItemResultStorehouse.getCheckSubItemResult(studentID));
     }
 
@@ -89,7 +103,7 @@ public abstract class Booking implements IDomain {
     public abstract boolean checkItemScoreIsValid(CheckSubItemResult checkSubItemResult);
 
     //计算指定学员最终成绩
-    public abstract Score CountFinalResultNext(String studentID);
+    public abstract Score countFinalResultNext(String studentID);
 
     //后期需修改为返回克隆对象
     public CheckCourse getCheckCourse() {
@@ -138,7 +152,7 @@ public abstract class Booking implements IDomain {
      * 增加学生
      */
     public void addStudent(Student student){
-        this.studentList.addStudent(student);
+        this.studentRoll.addStudent(student);
     }
 
     /**
@@ -147,13 +161,13 @@ public abstract class Booking implements IDomain {
      */
     public void addStudents(List<Student> students){
         for (Student student:students) {
-            this.studentList.addStudent(student);
+            this.studentRoll.addStudent(student);
         }
     }
 
     //判断某学生是否在学生名单中
     public Boolean isHasStudent(String studentID){
-        return this.studentList.getStudent(studentID)==null?false:true;
+        return this.studentRoll.getStudent(studentID)==null?false:true;
     }
 
     /**
@@ -188,7 +202,7 @@ public abstract class Booking implements IDomain {
      * @param studentID
      * @return 分数，包含两种类型分数：百分值，二分制 详见 @see Score
      */
-    public  Score CountFinalResult(String studentID){
+    public  Score countFinalResult(String studentID){
         //检查要计算总评成绩的学生是否在考核学员名单中
         if (!isHasStudent(studentID)) {
             throw new WithoutTheStudentException();
@@ -201,10 +215,10 @@ public abstract class Booking implements IDomain {
 
         //如何没有登记过任何分项成绩，返回空
         if (getCheckSubItemResult(studentID).isEmpty())
-            return null;
+            return Score.emptyScore();
 
         //如果缓考或免考，不返回成绩
 
-        return CountFinalResultNext(studentID);
+        return countFinalResultNext(studentID);
     }
 }

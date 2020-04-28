@@ -6,7 +6,7 @@ public enum TwoPointSystemResult {
     MARKUP_PASS("补及",-3F),
     MARKUP_NOTPASS("补不及",-4F);
 
-    TwoPointSystemResult(String mark,Float value) {
+    private  TwoPointSystemResult(String mark,Float value) {
         this.mark=mark;
         this.value=value;
     }
