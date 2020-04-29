@@ -46,6 +46,7 @@
 
         <!---ibps dependency start -->
         <!--api base-->
+        <!--
         <dependency>
             <groupId>com.lc.ibps.api</groupId>
             <artifactId>ibps-api-base</artifactId>
@@ -67,7 +68,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+    -->
         <!---ibps dependency end -->
         <dependency>
             <groupId>org.hibernate</groupId>
