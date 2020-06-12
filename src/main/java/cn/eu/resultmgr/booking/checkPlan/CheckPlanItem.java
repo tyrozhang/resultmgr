@@ -1,7 +1,7 @@
-package cn.eu.resultmgr.booking.domain.checkPlan;
+package cn.eu.resultmgr.booking.checkPlan;
 
 import cn.eu.framwork.bean.ValueObj;
-import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
+import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItem;
 import cn.eu.resultmgr.booking.domain.exception.CheckPlanItemWeightMoreThanOneException;
 
 public class CheckPlanItem extends ValueObj {
@@ -33,5 +33,21 @@ public class CheckPlanItem extends ValueObj {
 
     public Float getWeight() {
         return weight;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj != null && obj.getClass() == this.getClass()) {
+            return this.checkSubItem.equals(((CheckPlanItem) obj).getCheckSubItem());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + (checkSubItem == null ? 0 : checkSubItem.hashCode());
+        result = 31 * result + (weight == null ? 0 : weight.hashCode());
+        return result;
     }
 }

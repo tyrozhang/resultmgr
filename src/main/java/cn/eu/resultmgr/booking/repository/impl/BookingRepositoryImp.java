@@ -20,7 +20,7 @@ public class BookingRepositoryImp implements BookingRepository {
         if (po==null)
             return null;
         if (po.getType().equals("0"))
-            return NormalExaminationBooking.genarateDO(po);
+            return NormalExaminationBooking.build(po);
 
         return null;
     }
@@ -28,8 +28,10 @@ public class BookingRepositoryImp implements BookingRepository {
     @Override
     public void save(Booking booking) {
         String bookingID=booking.getEntityID();
-        if(bookingID.equals(bookingDao.getBookingID(bookingID)))
+        if(bookingDao.getBookingID(bookingID)>0) {
             bookingDao.updateById(booking.genatatePO());
+            return;
+        }
         bookingDao.insert(booking.genatatePO());
 
     }

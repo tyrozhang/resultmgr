@@ -1,7 +1,8 @@
-package cn.eu.resultmgr.booking.domain.checkResult;
+package cn.eu.resultmgr.checkResult;
 
+import cn.eu.common.bean.BeanCopyUtil;
 import cn.eu.framwork.bean.ValueObj;
-import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
+import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItem;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,16 @@ import java.util.Set;
 
 public class CheckSubItemResultStorehouse extends ValueObj {
     private static final long serialVersionUID = 2503316443957908021L;
+    private String BookingID;
+
+    public CheckSubItemResultStorehouse(String bookingID) {
+        BookingID = bookingID;
+    }
+
+    public String getBookingID() {
+        return BookingID;
+    }
+
     //分项成绩
     private Set<CheckSubItemResult> studentCheckItemResults = new HashSet<CheckSubItemResult>();
     public CheckSubItemResultStorehouse() {
@@ -36,7 +47,7 @@ public class CheckSubItemResultStorehouse extends ValueObj {
     //获取指定学员某分项成绩
     public  CheckSubItemResult getCheckSubItemResult(String studentID, CheckSubItem checkSubItem){
         for (CheckSubItemResult item:this.studentCheckItemResults) {
-            if(item.getStudentID().equals(studentID) && item.getCheckItem().equal(checkSubItem)){
+            if(item.getStudentID().equals(studentID) && item.getCheckItem().equals(checkSubItem)){
                 return item;
             }
         }
@@ -62,7 +73,7 @@ public class CheckSubItemResultStorehouse extends ValueObj {
     //删除某分项全部已登记成绩
     public void clearCheckSubItemResult(CheckSubItem checkSubItem){
         for (CheckSubItemResult item:this.studentCheckItemResults) {
-            if(item.getCheckItem().equal(checkSubItem)){
+            if(item.getCheckItem().equals(checkSubItem)){
                 this.studentCheckItemResults.remove(item);
             }
         }

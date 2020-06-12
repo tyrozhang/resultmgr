@@ -34,9 +34,6 @@ public class BookingPO extends Model<BookingPO> implements Serializable {
 
     //课程属性
     private String courseID;
-    private String courseNO;
-    private String courseName;
-    private String studyRequire;
 
     public String getCourseID() {
         return courseID;
@@ -44,30 +41,6 @@ public class BookingPO extends Model<BookingPO> implements Serializable {
 
     public void setCourseID(String courseID) {
         this.courseID = courseID;
-    }
-
-    public String getCourseNO() {
-        return courseNO;
-    }
-
-    public void setCourseNO(String courseNO) {
-        this.courseNO = courseNO;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getStudyRequire() {
-        return studyRequire;
-    }
-
-    public void setStudyRequire(String studyRequire) {
-        this.studyRequire = studyRequire;
     }
 
     //学期

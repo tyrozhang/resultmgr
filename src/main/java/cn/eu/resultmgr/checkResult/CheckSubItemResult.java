@@ -1,10 +1,8 @@
-package cn.eu.resultmgr.booking.domain.checkResult;
+package cn.eu.resultmgr.checkResult;
 
 import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.model.Score;
-import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItem;
-
-import java.io.Serializable;
+import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItem;
 
 public class CheckSubItemResult extends ValueObj {
     private static final long serialVersionUID = -8680939135578292913L;

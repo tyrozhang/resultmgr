@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS BOOKING;
 CREATE TABLE BOOKING(
-    bookingid varchar(32) not null,
+    bookingid varchar(36) not null,
     type varchar(2) not null,
     courseid varchar(32) null,
     courseno varchar(32) null,

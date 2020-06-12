@@ -1,4 +1,4 @@
-package cn.eu.resultmgr.booking.domain.checkSubItem;
+package cn.eu.resultmgr.booking.checkPlan.checkSubItem;
 
 public  class  CheckSubItemFactory {
     public static final CheckSubItem USUAL =new CheckSubItem("平时成绩");

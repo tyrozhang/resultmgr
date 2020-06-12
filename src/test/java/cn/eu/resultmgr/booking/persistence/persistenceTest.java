@@ -1,4 +1,4 @@
-package cn.eu.resultmgr.persistence;
+package cn.eu.resultmgr.booking.persistence;
 
 import cn.eu.resultmgr.booking.domain.Booking;
 import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
@@ -30,7 +30,7 @@ public class persistenceTest {
         List<Booking> bos=new ArrayList<>();
 
         for (BookingPO bp:bookingbos) {
-            bos.add(NormalExaminationBooking.genarateDO(bp));
+            bos.add(NormalExaminationBooking.build(bp));
         }
         long endTime1=System.currentTimeMillis();
         System.out.println("程序运行时间： "+(endTime1 - startTime1)+"ms");

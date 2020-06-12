@@ -2,7 +2,7 @@ package cn.eu.resultmgr.resultWarehouse.domain;
 
 import cn.eu.framwork.domain.IDomain;
 import cn.eu.resultmgr.contants.ExamBehavior;
-import cn.eu.resultmgr.model.CheckCourse;
+import cn.eu.resultmgr.checkCourse.CheckCourse;
 import cn.eu.resultmgr.model.CheckTerm;
 import cn.eu.resultmgr.model.Score;
 import cn.eu.resultmgr.model.Student;

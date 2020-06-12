@@ -1,13 +1,13 @@
 package cn.eu.resultmgr;
 
+import cn.eu.resultmgr.service.RecordResultService;
+import cn.eu.resultmgr.checkCourse.CheckCourseID;
 import cn.eu.resultmgr.contants.ScoreType;
-import cn.eu.resultmgr.contants.StudyRequire;
 import cn.eu.resultmgr.contants.TwoPointSystemResult;
-import cn.eu.resultmgr.booking.domain.checkPlan.CheckPlanItem;
+import cn.eu.resultmgr.booking.checkPlan.CheckPlanItem;
 import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
-import cn.eu.resultmgr.booking.domain.checkResult.CheckSubItemResult;
-import cn.eu.resultmgr.booking.domain.checkSubItem.CheckSubItemFactory;
-import cn.eu.resultmgr.model.CheckCourse;
+import cn.eu.resultmgr.checkResult.CheckSubItemResult;
+import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItemFactory;
 import cn.eu.resultmgr.model.CheckTerm;
 import cn.eu.resultmgr.model.Score;
 import org.junit.jupiter.api.Assertions;
@@ -15,28 +15,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
+
 @SpringBootTest
 public class ChangeBookingTest {
-    @Test
-    @DisplayName("改变考核分项分制")
-    void changeScoreTypeTest(){
-        NormalExaminationBooking p_Booking = initBooking(ScoreType.HUNDRED_MARK_SYSTEM);
+    @Resource
+    RecordResultService recordResultService;
 
-        p_Booking.addStudent(util.getStudent());
-
-        p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.USUAL,0.3F));
-
-        p_Booking.recordResult(new CheckSubItemResult("s_id_123", CheckSubItemFactory.USUAL,new Score(80F)));
-        Assertions.assertEquals(80F,p_Booking.getCheckSubItemResult("s_id_123",CheckSubItemFactory.USUAL).getScore().getValue());
-
-        //修改后清除成绩
-        p_Booking.changeScoreType(ScoreType.TWO_POINTS_SYSTEM);
-        Assertions.assertEquals(0,p_Booking.getCheckSubItemResult("s_id_123").size());
-
-        //继续录成绩
-        p_Booking.recordResult(new CheckSubItemResult("s_id_123", CheckSubItemFactory.EXAM,new Score(TwoPointSystemResult.PASS)));
-        Assertions.assertEquals(-1F,p_Booking.getCheckSubItemResult("s_id_123",CheckSubItemFactory.EXAM).getScore().getValue());
-    }
 
 /*    @Test
     @DisplayName("改变考核分项权重")
@@ -57,8 +42,7 @@ public class ChangeBookingTest {
         Assertions.assertEquals(null,p_Booking.getCheckSubItemResult("s_id_123",new UsualCheckSubItem()));
     }*/
     private NormalExaminationBooking initBooking(ScoreType scoreType) {
-        CheckCourse checkCourse = new CheckCourse("c_id_123","C_NO_123", "大学英语", StudyRequire.MUST_STUDY);
         CheckTerm checkTerm = new CheckTerm("2019-2020-1");
-        return new NormalExaminationBooking(checkCourse,checkTerm, scoreType);
+        return new NormalExaminationBooking(new CheckCourseID("c_id_123"),checkTerm, scoreType);
     }
 }

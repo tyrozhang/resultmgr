@@ -1,28 +1,31 @@
-package cn.eu.resultmgr.model;
+package cn.eu.resultmgr.checkCourse;
 
 import cn.eu.framwork.bean.ValueObj;
 import cn.eu.resultmgr.contants.StudyRequire;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 /**
  *
  */
+@Table("result_checkcourse")
 public class CheckCourse extends ValueObj {
     private static final long serialVersionUID = 3580652548659070430L;
 
-    public CheckCourse(String courseID, String courseNO, String courseName, StudyRequire studyRequire) {
+    public CheckCourse(CheckCourseID courseID, String courseNO, String courseName, StudyRequire studyRequire) {
         this.courseID = courseID;
         this.courseNO = courseNO;
         this.courseName = courseName;
         this.studyRequire = studyRequire;
     }
-
-    private String courseID;
+    @Id
+    private CheckCourseID courseID;
     private String courseNO;
     private String courseName;
     private StudyRequire studyRequire;
 
 
-    public String getCourseID() {
+    public CheckCourseID getCourseID() {
         return courseID;
     }
 
