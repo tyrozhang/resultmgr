@@ -1,4 +1,4 @@
-package cn.eu.resultmgr.booking.checkPlan.checkSubItem;
+package cn.eu.resultmgr.model.checkSubItem;
 
 import cn.eu.framwork.bean.ValueObj;
 

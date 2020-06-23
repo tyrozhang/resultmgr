@@ -1,7 +1,7 @@
-package cn.eu.resultmgr.booking.checkPlan;
+package cn.eu.resultmgr.model.checkPlan;
 
 import cn.eu.framwork.bean.ValueObj;
-import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItem;
+import cn.eu.resultmgr.model.checkSubItem.CheckSubItem;
 import cn.eu.resultmgr.booking.domain.exception.CheckPlanItemWeightMoreThanOneException;
 
 public class CheckPlanItem extends ValueObj {

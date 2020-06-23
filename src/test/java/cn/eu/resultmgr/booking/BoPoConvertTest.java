@@ -1,19 +1,13 @@
 package cn.eu.resultmgr.booking;
 
+import cn.eu.resultmgr.model.checkPlan.UsualScoreAndExamScoreWithWeighing;
 import cn.eu.resultmgr.booking.domain.Booking;
 import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
-import cn.eu.resultmgr.booking.checkPlan.CheckPlanItem;
 import cn.eu.resultmgr.service.RecordResultService;
-import cn.eu.resultmgr.checkResult.CheckSubItemResult;
-import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItemFactory;
 import cn.eu.resultmgr.booking.persistence.po.BookingPO;
 import cn.eu.resultmgr.contants.ScoreType;
-import cn.eu.resultmgr.contants.TwoPointSystemResult;
-import cn.eu.resultmgr.model.Score;
-import cn.eu.resultmgr.model.Student;
 import cn.eu.resultmgr.util;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,11 +27,8 @@ public class BoPoConvertTest {
         NormalExaminationBooking p_Booking = util.createNormalExaminationBooking(ScoreType.HUNDRED_MARK_SYSTEM);
         p_Booking.addStudent(util.getStudent());
 
-        p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.USUAL,0.3F));
-        p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.EXAM,0.7F));
-
         Booking generate_booking = getBooking(p_Booking);
-        Assertions.assertEquals(2,generate_booking.getCheckPlanItems().size());
+        Assertions.assertTrue(generate_booking.getStudents().size()>1);
     }
 
     private Booking getBooking(NormalExaminationBooking p_Booking) {
@@ -52,9 +43,6 @@ public class BoPoConvertTest {
         for(int i=0;i<1000;i++) {
             NormalExaminationBooking p_Booking = util.createNormalExaminationBooking(ScoreType.HUNDRED_MARK_SYSTEM);
             p_Booking.addStudent(util.getStudent());
-
-            p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.USUAL,0.3F));
-            p_Booking.addCheckPlanItem(new CheckPlanItem(CheckSubItemFactory.EXAM,0.7F));
 
    /*         for (Student stu:p_Booking.getStudents()) {
                 p_Booking.recordResult(new CheckSubItemResult(stu.getStudentID(), CheckSubItemFactory.USUAL,new Score(90F)));

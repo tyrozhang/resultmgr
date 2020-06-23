@@ -1,8 +1,7 @@
 package cn.eu.resultmgr.checkResult;
 
-import cn.eu.common.bean.BeanCopyUtil;
 import cn.eu.framwork.bean.ValueObj;
-import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItem;
+import cn.eu.resultmgr.model.checkSubItem.CheckSubItem;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +21,8 @@ public class CheckSubItemResultStorehouse extends ValueObj {
 
     //分项成绩
     private Set<CheckSubItemResult> studentCheckItemResults = new HashSet<CheckSubItemResult>();
-    public CheckSubItemResultStorehouse() {
-    }
+    /*public CheckSubItemResultStorehouse() {
+    }*/
 
     //登记成绩
     public void recordResult(CheckSubItemResult checkSubItemResult) {

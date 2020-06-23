@@ -3,16 +3,8 @@ package cn.eu.resultmgr;
 import cn.eu.resultmgr.service.RecordResultService;
 import cn.eu.resultmgr.checkCourse.CheckCourseID;
 import cn.eu.resultmgr.contants.ScoreType;
-import cn.eu.resultmgr.contants.TwoPointSystemResult;
-import cn.eu.resultmgr.booking.checkPlan.CheckPlanItem;
 import cn.eu.resultmgr.booking.domain.NormalExaminationBooking;
-import cn.eu.resultmgr.checkResult.CheckSubItemResult;
-import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItemFactory;
 import cn.eu.resultmgr.model.CheckTerm;
-import cn.eu.resultmgr.model.Score;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;

@@ -2,22 +2,15 @@ package cn.eu.resultmgr.booking.domain;
 
 import cn.eu.framwork.domain.IDomain;
 import cn.eu.common.bean.BeanCopyUtil;
+import cn.eu.resultmgr.model.checkPlan.CheckPlan;
 import cn.eu.resultmgr.booking.domain.examBehavior.ExamBehaviorRecord;
-import cn.eu.resultmgr.service.RecordResultService;
 import cn.eu.resultmgr.checkCourse.CheckCourseID;
 import cn.eu.resultmgr.contants.ScoreType;
-import cn.eu.resultmgr.contants.TwoPointSystemResult;
-import cn.eu.resultmgr.booking.checkPlan.CheckPlanItem;
-import cn.eu.resultmgr.checkResult.CheckSubItemResult;
-import cn.eu.resultmgr.checkResult.CheckSubItemResultStorehouse;
-import cn.eu.resultmgr.booking.checkPlan.checkSubItem.CheckSubItem;
-import cn.eu.resultmgr.booking.domain.exception.WithoutTheStudentException;
+
+import cn.eu.resultmgr.model.checkSubItem.CheckSubItem;
 import cn.eu.resultmgr.model.CheckTerm;
-import cn.eu.resultmgr.model.Score;
 import cn.eu.resultmgr.model.Student;
 
-
-import javax.annotation.Resource;
 import java.util.*;
 
 public abstract class Booking implements IDomain<Booking> {
@@ -47,24 +40,14 @@ public abstract class Booking implements IDomain<Booking> {
         return BeanCopyUtil.clone(studentRoll);
     }
 
-
-
-    //更正分制
-    public void changeScoreType(ScoreType scoreType){
-        if (this.scoreType==scoreType)
-            return;
-        this.scoreType=scoreType;
+    //是否违纪
+    public boolean isCheatedOrAbsent(String studentID){
+        if(!this.isHasStudent(studentID))
+            return false;
+        if (this.examBehaviorRecord.isCheatedOrAbsent(studentID))
+            return true;
+        return false;
     }
-
-
-    public abstract Set<CheckPlanItem> getCheckPlanItems();
-
-    ///检查分项是否在考核方案中
-    public abstract boolean hasCheckSubItem(CheckSubItem checkSubItem);
-
-    //检查登记的分数是否符合成绩分项分制
-    public abstract boolean checkItemScoreIsValid(ScoreType scoreType);
-
 
 
     //后期需修改为返回克隆对象
@@ -139,23 +122,4 @@ public abstract class Booking implements IDomain<Booking> {
      * @param studentID
      * @return 分数，包含两种类型分数：百分值，二分制 详见 @see Score
      */
-/*    public  Score countFinalResult(String studentID){
-        //检查要计算总评成绩的学生是否在考核学员名单中
-        if (!isHasStudent(studentID)) {
-            throw new WithoutTheStudentException();
-        }
-
-        //作弊成绩认定
-        if(this.examBehaviorRecord.isCheatedOrAbsent(studentID)){
-            return  (this.getScoreType()==ScoreType.HUNDRED_MARK_SYSTEM)?new Score(0F):new Score(TwoPointSystemResult.NOTPASS);
-        }
-
-        //如何没有登记过任何分项成绩，返回空
-        if (getCheckSubItemResult(studentID).isEmpty())
-            return Score.emptyScore();
-
-        //如果缓考或免考，不返回成绩
-
-        return countFinalResultNext(studentID);
-    }*/
 }
